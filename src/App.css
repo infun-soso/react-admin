@@ -1,0 +1,19 @@
+@import '~antd/dist/antd.css';
+
+.ant-menu-inline .ant-menu-item {
+  margin: 0 !important;
+}
+
+.ant-layout-sider {
+  background: #23292e;
+}
+
+.ant-menu.ant-menu-dark .ant-menu-item-selected, .ant-menu-submenu-popup.ant-menu-dark .ant-menu-item-selected {
+  background: #1c2125;
+}
+.ant-menu-dark, .ant-menu-dark .ant-menu-sub, .ant-layout-sider-trigger {
+  background: #23292e;
+}
+.ant-menu-dark .ant-menu-inline.ant-menu-sub {
+  background: #23292e;
+}
