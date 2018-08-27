@@ -54,8 +54,16 @@ const data = [{
   address: 'Sidney No. 1 Lake Park',
   tags: ['cool', 'teacher'],
 }];
-console.log(api)
+
+
 export default class MyTable extends React.Component {
+
+  componentWillMount() {
+    api.getArticleList({article_id: '1'}).then(res => {
+      console.log(res)
+    })
+  }
+
 	render() {
 		return (
 			<Table columns={columns} bordered={true} dataSource={data} />
