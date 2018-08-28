@@ -52,7 +52,7 @@ export default {
 	},
 	post(url, params, config = defaultOption) {
 		return new Promise((resolve, reject) => {
-			axios.get(url, params, config)
+			axios.post(url, params, config)
 				.then(res => {
 					resolve(res)
 				}, (err) => {

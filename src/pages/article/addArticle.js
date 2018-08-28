@@ -1,14 +1,16 @@
 import React from 'react'
 import { Form, Input, Button, Radio } from 'antd';
-console.log(Input)
+import api from '../../api'
+
 const { TextArea } = Input;
 const FormItem = Form.Item;
 
-class FormLayoutDemo extends React.Component {
+class CustomizedForm extends React.Component {
   constructor() {
     super();
     this.state = {
       formLayout: 'horizontal',
+      fields: {}
     };
   }
 
@@ -16,7 +18,21 @@ class FormLayoutDemo extends React.Component {
     this.setState({ formLayout: e.target.value });
   }
 
+  handleSubmit = (e) => {
+    e.preventDefault();
+    this.props.form.validateFields((err, values) => {
+      if (!err) {
+        console.log('Received values of form: ', values);
+        api.addArticle(values)
+          .then(res => {
+            console.log(res)
+          })
+      }
+    });
+  }
+
   render() {
+    const { getFieldDecorator } = this.props.form;
     const { formLayout } = this.state;
     const formItemLayout = formLayout === 'horizontal' ? {
       labelCol: { span: 2 },
@@ -32,13 +48,21 @@ class FormLayoutDemo extends React.Component {
             label="文章标题"
             {...formItemLayout}
           >
-            <Input />
+            {getFieldDecorator('articleTitle', {
+              rules: [{ required: true, message: 'Please enter the title!', whitespace: true }],
+            })(
+              <Input />
+            )}
           </FormItem>
           <FormItem
             label="文章关键字"
             {...formItemLayout}
           >
-            <Input />
+            {getFieldDecorator('keywords', {
+              rules: [{ required: true, message: 'Please enter the keywords!', whitespace: true }],
+            })(
+              <Input />
+            )}
           </FormItem>
 					<FormItem
             label="文章标签"
@@ -50,33 +74,37 @@ class FormLayoutDemo extends React.Component {
 						{...formItemLayout}
 						wrapperCol = {{span: 14}}
           >
-						<TextArea placeholder="" autosize={{ minRows: 2, maxRows: 6 }} />
+            {getFieldDecorator('description', {
+              rules: [{ required: true, message: 'Please enter the description!', whitespace: true }],
+            })(
+						  <TextArea placeholder="" autosize={{ minRows: 2, maxRows: 6 }} />
+            )}
           </FormItem>
 					<FormItem
             label="文章内容"
 						{...formItemLayout}
 						wrapperCol = {{span: 14}}
           >
-						<TextArea placeholder="" autosize={{ minRows: 6 }} />
+            {getFieldDecorator('content', {
+              rules: [{ required: true, message: 'Please enter the content!', whitespace: true }],
+            })(
+					  	<TextArea placeholder="" autosize={{ minRows: 6 }} />
+            )}
           </FormItem>
           <FormItem {...buttonItemLayout}>
-            <Button type="primary">Submit</Button>
+            <Button type="primary" onClick={this.handleSubmit}>Submit</Button>
           </FormItem>
         </Form>
       </div>
     );
   }
 }
-
+CustomizedForm = Form.create({})(CustomizedForm);
 export default class AddArticle extends React.Component {
-	constructor() {
-		super()
-	}
-
 	render() {
 		return (
 			<div className="index">
-				<FormLayoutDemo />
+				<CustomizedForm />
 			</div>
 		)
 	}
