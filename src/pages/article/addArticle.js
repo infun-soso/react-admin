@@ -1,5 +1,5 @@
 import React from 'react'
-import { Form, Input, Button, Radio } from 'antd';
+import { Form, Input, Button, message } from 'antd';
 import api from '../../api'
 
 const { TextArea } = Input;
@@ -25,7 +25,9 @@ class CustomizedForm extends React.Component {
         console.log('Received values of form: ', values);
         api.addArticle(values)
           .then(res => {
-            console.log(res)
+            if (res.code === 0) {
+              message.success('提交成功');
+            }
           })
       }
     });

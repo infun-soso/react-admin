@@ -1,23 +1,26 @@
 import { Table, Divider, Tag } from 'antd'
 import React from 'react'
-import api from '../api'
+
 const columns = [{
   title: '文章标题',
-  dataIndex: 'name',
-  key: 'name',
+  dataIndex: 'title',
+  key: 'title',
   render: text => <a href="javascript:;">{text}</a>,
 }, {
   title: '发布日期',
-  dataIndex: 'age',
-  key: 'age',
+  dataIndex: 'create_at',
+  key: 'create_at',
+  render: time => {
+    return new Date(time).toLocaleString()
+  }
 }, {
-  title: '分类',
-  dataIndex: 'address',
-  key: 'address',
+  title: '关键字',
+  dataIndex: 'keyword',
+  key: 'keyword',
 }, {
-  title: '阅读量',
-  key: 'tags',
-  dataIndex: 'tags',
+  title: '标签',
+  key: 'tag',
+  dataIndex: 'tag',
   render: tags => (
     <span>
       {tags.map(tag => <Tag color="blue" key={tag}>{tag}</Tag>)}
@@ -56,17 +59,9 @@ const data = [{
 }];
 
 
-export default class MyTable extends React.Component {
-
-  componentWillMount() {
-    api.getArticleList({article_id: '1'}).then(res => {
-      console.log(res)
-    })
-  }
-
-	render() {
-		return (
-			<Table columns={columns} bordered={true} dataSource={data} />
-		)
-	}
+export default function MyTable (props) {
+  console.log(props)
+  return (
+    <Table columns={columns} bordered={true} dataSource={props.data} />
+  )
 }
