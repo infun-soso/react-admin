@@ -1,5 +1,4 @@
 import api from './request'
-console.log(api)
 
 export default {
 	getArticleList(params) {

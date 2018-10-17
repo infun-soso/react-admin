@@ -10,6 +10,8 @@ const defaultOption = {
 }
 
 axios.interceptors.request.use((config) => {
+	console.log(config)
+	console.log(config.data)
 	if(config.method  === 'post'){
     config.data = qs.stringify(config.data);
   }

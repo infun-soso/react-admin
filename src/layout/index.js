@@ -5,7 +5,7 @@ import {
 import React from 'react';
 import { menu } from '../untils/menu.js'
 
-import Section from '../container/section'
+import Routes from '../router/routes'
 
 const { Header, Content, Footer, Sider } = Layout;
 const SubMenu = Menu.SubMenu;
@@ -21,13 +21,13 @@ class SiderDemo extends React.Component {
   }
 
   toggle = () => {
-      console.log(1)
     this.setState({ 
         collapsed: !this.state.collapsed 
     }); 
   }
 
   render() {
+    console.log('layouts')
     return (
       <Layout style={{ minHeight: '100vh' }}>
         <Sider
@@ -36,7 +36,7 @@ class SiderDemo extends React.Component {
           onCollapse={this.onCollapse}
         >
           <div className="logo" style={{height: "64px", color: "#fff", lineHeight: "64px", fontSize: '23px', paddingLeft: '24px'}}>
-            Infun
+            {this.state.collapsed ? 'Yan' : 'Infun'}
           </div>
           <Menu theme="dark" defaultSelectedKeys={['0']} mode="inline">
             { 
@@ -97,12 +97,12 @@ class SiderDemo extends React.Component {
               onClick={this.toggle}
             />
           </Header>
-          <Content style={{ margin: '0 16px' }}>
-            <Breadcrumb style={{ margin: '16px 0' }}>
+          <Content style={{ margin: '16px 16px' }}>
+            {/* <Breadcrumb style={{ margin: '16px 0' }}>
               <Breadcrumb.Item>User</Breadcrumb.Item>
               <Breadcrumb.Item>Bill</Breadcrumb.Item>
-            </Breadcrumb>
-            <Section></Section>
+            </Breadcrumb> */}
+            <Routes></Routes>
           </Content>
           <Footer style={{ textAlign: 'center' }}>
             Ant Design ©2018 Created by Ant UED

@@ -1,7 +1,7 @@
 export const menu = [
 	{
 		name: '我的面板',
-		url: 'index',
+		url: 'dashboard',
 		icon: 'home'
 	},
 	{
@@ -11,6 +11,14 @@ export const menu = [
 		children: [
 			{ name: '发表文章', url: 'addarticle' },
 			{ name: '文章列表', url: 'articlelist' },
+		]
+	},
+	{
+		name: '小工具',
+		url: 'tools',
+		icon: 'desktop',
+		children: [
+			{ name: 'todolist', url: 'todolist' },
 		]
 	}
 ]
