@@ -7,5 +7,9 @@ export default {
 
 	addArticle(params) {
 		return api.post('/admin/addarticle', params)
+	},
+
+	login(params) {
+		return api.post('/admin/login', params)
 	}
 }

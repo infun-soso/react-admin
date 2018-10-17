@@ -3,6 +3,7 @@ import {
   Link
 } from 'react-router-dom';
 import React from 'react';
+import { connect } from 'react-redux'
 import { menu } from '../untils/menu.js'
 
 import Routes from '../router/routes'
@@ -27,7 +28,7 @@ class SiderDemo extends React.Component {
   }
 
   render() {
-    console.log('layouts')
+    const { userInfo } = this.props
     return (
       <Layout style={{ minHeight: '100vh' }}>
         <Sider
@@ -96,6 +97,7 @@ class SiderDemo extends React.Component {
               type={this.state.collapsed ? 'menu-unfold' : 'menu-fold'}
               onClick={this.toggle}
             />
+            <span style={{ float: "right", paddingRight: 20 }}>welcome, {userInfo.username}</span>
           </Header>
           <Content style={{ margin: '16px 16px' }}>
             {/* <Breadcrumb style={{ margin: '16px 0' }}>
@@ -113,4 +115,6 @@ class SiderDemo extends React.Component {
   }
 }
 
-export default SiderDemo
+export default connect(state => ({
+  userInfo: state.userReducer
+}))(SiderDemo)

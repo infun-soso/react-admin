@@ -2,6 +2,8 @@ import React from 'react'
 import {
   Form, Input, Button,
 } from 'antd'
+import { connect } from 'react-redux'
+import { login } from '../../store/login/action'
 
 import './index.less'
 
@@ -14,17 +16,21 @@ class LoginPage extends React.Component {
   }
 
   handleSubmit = (e) => {
-    // const { form } = this.props
-    // const { getFieldsValue } = form
-    // e.preventDefault()
-    // let n = getFieldsValue().username
-    // let p = getFieldsValue().password
-    // if (n === '123' && p === '123') {
-    //   // 表单的路由处理
-    //   history.push('/home')
-    // } else {
-    //   this.openNotificationWithIcon('info')
-    // }
+    const { form } = this.props
+    const { getFieldsValue } = form
+    e.preventDefault()
+    let n = getFieldsValue().username
+    let p = getFieldsValue().password
+    if (n === '123' && p === '123') {
+      // 表单的路由处理
+      // this.props.history.push('/dashboard')
+      this.props.dispatch(login({
+        username: n,
+        password: p
+      }))
+    } else {
+      this.openNotificationWithIcon('info')
+    }
   }
 
   // 返回一个弹框对象，提示用户名和密码
@@ -39,11 +45,12 @@ class LoginPage extends React.Component {
 
   render() {
     const { form } = this.props
+    console.log(this.props)
     const { getFieldDecorator } = form
     return (
       <div className="loginpagewrap">
         <div className="box">
-          <p>Welcome to the ReactSPA</p>
+          <p>Welcome to the BMS</p>
           <div className="loginWrap">
             <Form onSubmit={this.handleSubmit}>
               <FormItem>
@@ -70,4 +77,5 @@ class LoginPage extends React.Component {
 }
 
 const Login = Form.create()(LoginPage)
-export default Login
+
+export default connect()(Login)
