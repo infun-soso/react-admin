@@ -10,27 +10,23 @@ import './index.less'
 const FormItem = Form.Item
 
 class LoginPage extends React.Component {
-  componentDidMount() {
-    console.log('login')
-    // this.openNotificationWithIcon('info')
-  }
 
   handleSubmit = (e) => {
     const { form } = this.props
-    const { getFieldsValue } = form
+    const { getFieldsValue, validateFields } = form
     e.preventDefault()
     let n = getFieldsValue().username
     let p = getFieldsValue().password
-    if (n === '123' && p === '123') {
-      // 表单的路由处理
-      // this.props.history.push('/dashboard')
-      this.props.dispatch(login({
-        username: n,
-        password: p
-      }))
-    } else {
-      this.openNotificationWithIcon('info')
-    }
+    validateFields(
+      (err) => {
+        if (!err) {
+          this.props.dispatch(login({
+            username: n,
+            password: p
+          }))
+        }
+      },
+    )
   }
 
   // 返回一个弹框对象，提示用户名和密码
@@ -45,7 +41,6 @@ class LoginPage extends React.Component {
 
   render() {
     const { form } = this.props
-    console.log(this.props)
     const { getFieldDecorator } = form
     return (
       <div className="loginpagewrap">
