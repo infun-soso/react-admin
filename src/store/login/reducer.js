@@ -1,5 +1,5 @@
 let defaultState = {
-  username: '',
+  username: sessionStorage.username || '',
   password: ''
 }
 

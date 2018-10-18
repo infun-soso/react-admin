@@ -5,7 +5,7 @@ const columns = [{
   title: '文章标题',
   dataIndex: 'title',
   key: 'title',
-  render: text => <a href="javascript:;">{text}</a>,
+  render: text => <a href="##">{text}</a>,
 }, {
   title: '发布日期',
   dataIndex: 'create_at',
@@ -31,9 +31,9 @@ const columns = [{
   key: 'action',
   render: () => (
     <span>
-      <a href="javascript:;">修改</a>
+      <a href="##">修改</a>
       <Divider type="vertical" />
-      <a href="javascript:;">删除</a>
+      <a href="##">删除</a>
     </span>
   ),
 }];
