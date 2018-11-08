@@ -3,7 +3,7 @@ import qs from 'qs'
 
 const defaultOption = {
 	headers: {
-		'Content-Type': 'application/x-www-form-urlencoded',
+		'Content-Type': 'application/x-www-form-urlencoded', // axios默认是 application/json , 更改为这个方式会使传入的数据为键值对形式，后台可以用x-www-form-urlencoded直接解析
 	},
 	withCredentials: false,
 	timeout: 12000
