@@ -12,7 +12,10 @@ const defaultOption = {
 axios.interceptors.request.use((config) => {
 	console.log(config)
 	console.log(config.data)
-	if(config.method  === 'post'){
+	// 如果是post请求，且data不为空（为避开formData，因为formData其实是一个空对象）
+	// 如果是普通请求 浏览器会自动给Content-Type 加上 multipart/form-data; boundary=----WebKitFormBoundaryZpQkKvVaO3jzO35z',
+	// 如果经过stringify处理，浏览器就会把Content-Type转换成application/json 这样就会出错
+	if(config.method  === 'post' && Object.keys(config.data).length !== 0){
     config.data = qs.stringify(config.data);
   }
 	return config

@@ -5,8 +5,8 @@ export default {
 		return api.get('/admin/index', params)
 	},
 
-	addArticle(params) {
-		return api.post('/admin/addarticle', params)
+	addArticle(params, config) {
+		return api.post('/admin/addarticle', params, config)
 	},
 
 	login(params) {

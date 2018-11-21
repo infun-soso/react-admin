@@ -1,16 +1,19 @@
 import React from 'react'
+import FormUpload from '@/components/upload'
 import { Form, Input, Button, message } from 'antd';
 import api from '../../api'
 
 const { TextArea } = Input;
 const FormItem = Form.Item;
 
+
 class CustomizedForm extends React.Component {
   constructor() {
     super();
     this.state = {
       formLayout: 'horizontal',
-      fields: {}
+      fields: {},
+      fileList: []
     };
   }
 
@@ -23,14 +26,32 @@ class CustomizedForm extends React.Component {
     this.props.form.validateFields((err, values) => {
       if (!err) {
         console.log('Received values of form: ', values);
-        api.addArticle(values)
-          .then(res => {
+        const { fileList } = this.state
+        const formData = new FormData()
+        fileList.map((file) => {
+          return formData.append('files[]', file)
+        })
+        for (let key in values) {
+          formData.append(key, values[key])
+        }
+        api.addArticle(formData, {
+          headers: {
+            'Content-Type': 'multipart/form-data'
+          }
+        }).then(res => {
             if (res.code === 0) {
               message.success('提交成功');
             }
           })
       }
     });
+  }
+
+  beforUpload = (file) => {
+    console.log(file)
+    this.setState(({ fileList }) => ({
+      fileList: [...fileList, file]
+    }))
   }
 
   render() {
@@ -92,6 +113,13 @@ class CustomizedForm extends React.Component {
             })(
 					  	<TextArea placeholder="" autosize={{ minRows: 6 }} />
             )}
+          </FormItem>
+          <FormItem
+            label="添加banner"
+						{...formItemLayout}
+						wrapperCol = {{span: 14}}
+          >
+            <FormUpload handleBeforeUpload={this.beforUpload}></FormUpload>
           </FormItem>
           <FormItem {...buttonItemLayout}>
             <Button type="primary" onClick={this.handleSubmit}>Submit</Button>
