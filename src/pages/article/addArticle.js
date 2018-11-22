@@ -1,5 +1,6 @@
 import React from 'react'
 import FormUpload from '@/components/upload'
+import MarkDown from '@/components/editor/Markdown'
 import { Form, Input, Button, message } from 'antd';
 import api from '../../api'
 
@@ -13,7 +14,9 @@ class CustomizedForm extends React.Component {
     this.state = {
       formLayout: 'horizontal',
       fields: {},
-      fileList: []
+      fileList: [],
+      markdown: '',
+      html: ''
     };
   }
 
@@ -31,6 +34,7 @@ class CustomizedForm extends React.Component {
         fileList.map((file) => {
           return formData.append('files[]', file)
         })
+        formData.append('content', this.state.html)
         for (let key in values) {
           formData.append(key, values[key])
         }
@@ -52,6 +56,15 @@ class CustomizedForm extends React.Component {
     this.setState(({ fileList }) => ({
       fileList: [...fileList, file]
     }))
+  }
+
+  callback = (data) => {
+    let { markdown, html } = data
+    this.setState({
+      markdown,
+      html
+    })
+    console.log(this.state.html)
   }
 
   render() {
@@ -103,7 +116,7 @@ class CustomizedForm extends React.Component {
 						  <TextArea placeholder="" autosize={{ minRows: 2, maxRows: 6 }} />
             )}
           </FormItem>
-					<FormItem
+					{/* <FormItem
             label="文章内容"
 						{...formItemLayout}
 						wrapperCol = {{span: 14}}
@@ -113,7 +126,8 @@ class CustomizedForm extends React.Component {
             })(
 					  	<TextArea placeholder="" autosize={{ minRows: 6 }} />
             )}
-          </FormItem>
+          </FormItem> */}
+          <MarkDown callback={this.callback} html={this.state.html} markdown={this.state.markdown}></MarkDown>
           <FormItem
             label="添加banner"
 						{...formItemLayout}
