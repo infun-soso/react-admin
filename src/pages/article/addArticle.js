@@ -1,11 +1,12 @@
 import React from 'react'
 import FormUpload from '@/components/upload'
 import MarkDown from '@/components/editor/Markdown'
-import { Form, Input, Button, message } from 'antd';
+import { Form, Input, Button, message, Select } from 'antd';
 import api from '../../api'
 
 const { TextArea } = Input;
 const FormItem = Form.Item;
+const Option = Select.Option
 
 
 class CustomizedForm extends React.Component {
@@ -25,10 +26,12 @@ class CustomizedForm extends React.Component {
   }
 
   handleSubmit = (e) => {
-    e.preventDefault();
+    e.preventDefault()
     this.props.form.validateFields((err, values) => {
       if (!err) {
         console.log('Received values of form: ', values);
+    console.log(1111)
+
         const { fileList } = this.state
         const formData = new FormData()
         fileList.map((file) => {
@@ -104,6 +107,17 @@ class CustomizedForm extends React.Component {
             label="文章标签"
             {...formItemLayout}
           >
+						  <Select
+                showSearch
+                mode="multiple"
+                placeholder="Select a tag"
+                optionFilterProp="children"
+                filterOption={(input, option) => option.props.children.toLowerCase().indexOf(input.toLowerCase()) >= 0}
+              >
+                <Option value="jack">Jack</Option>
+                <Option value="lucy">Lucy</Option>
+                <Option value="tom">Tom</Option>
+              </Select>
           </FormItem>
 					<FormItem
             label="文章描述"
@@ -116,18 +130,13 @@ class CustomizedForm extends React.Component {
 						  <TextArea placeholder="" autosize={{ minRows: 2, maxRows: 6 }} />
             )}
           </FormItem>
-					{/* <FormItem
+					<FormItem
             label="文章内容"
 						{...formItemLayout}
 						wrapperCol = {{span: 14}}
           >
-            {getFieldDecorator('content', {
-              rules: [{ required: true, message: 'Please enter the content!', whitespace: true }],
-            })(
-					  	<TextArea placeholder="" autosize={{ minRows: 6 }} />
-            )}
-          </FormItem> */}
-          <MarkDown callback={this.callback} html={this.state.html} markdown={this.state.markdown}></MarkDown>
+            <MarkDown callback={this.callback} html={this.state.html} markdown={this.state.markdown}></MarkDown>
+          </FormItem>
           <FormItem
             label="添加banner"
 						{...formItemLayout}

@@ -8,7 +8,7 @@ class Markdown extends React.Component {
     constructor() {
         super()
         this.state = {
-            val: '',
+            val: '支持markdown',
             html: '',
             link: '',
             linkMask: false
@@ -29,7 +29,7 @@ class Markdown extends React.Component {
     }
     componentWillMount () {
         this.setState({
-            val: this.props.value || ''
+            val: this.props.value || '/*支持markdown*/'
         }, () => {
             this.renderHtml()
         })
@@ -127,8 +127,8 @@ class Markdown extends React.Component {
     render () {
         return (
             <div id="markdowm">
-                <div className="md-title">
-                    {/* <ul className="cf">
+                {/*<div className="md-title">
+                     <ul className="cf">
                         <li onClick={e=>{this.setCursorPosition(this.refs.text, '****', 2)}}>
                             <a href="javascript:;" title="粗体"><IconSvg iconName="bold"/></a>
                         </li>
@@ -183,16 +183,16 @@ class Markdown extends React.Component {
                         <li onClick={e=>{this.setCursorPosition(this.refs.text, '---')}}>
                             <a href="javascript:;" title="分割线"><IconSvg iconName="758bianjiqi_fengexian"/></a>
                         </li>
-                    </ul> */}
-                </div>
+                    </ul> 
+                </div>*/}
                 <textarea ref="text" value={this.state.val} onChange={e => {this.handleInput(e.target.value)}}></textarea>
                 <div className="render fmt" dangerouslySetInnerHTML={{__html: this.state.html}}></div>
-                <div className="mask" style={{display: this.state.linkMask ? 'block':'none'}}>
+                {/* <div className="mask" style={{display: this.state.linkMask ? 'block':'none'}}>
                     <div className="link-text">
                         <input type="text" ref="link"/>
                         <button onClick={this.insertLink.bind(this)}>确定</button>
                     </div>
-                </div>
+                </div> */}
             </div>
         )
     }
