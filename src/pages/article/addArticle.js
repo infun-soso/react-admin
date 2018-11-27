@@ -35,7 +35,7 @@ class CustomizedForm extends React.Component {
         const { fileList } = this.state
         const formData = new FormData()
         fileList.map((file) => {
-          return formData.append('files[]', file)
+          return formData.append('file', file)
         })
         formData.append('content', this.state.html)
         for (let key in values) {
