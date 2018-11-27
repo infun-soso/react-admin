@@ -30,8 +30,6 @@ class CustomizedForm extends React.Component {
     this.props.form.validateFields((err, values) => {
       if (!err) {
         console.log('Received values of form: ', values);
-    console.log(1111)
-
         const { fileList } = this.state
         const formData = new FormData()
         fileList.map((file) => {
@@ -55,7 +53,6 @@ class CustomizedForm extends React.Component {
   }
 
   beforUpload = (file) => {
-    console.log(file)
     this.setState(({ fileList }) => ({
       fileList: [...fileList, file]
     }))

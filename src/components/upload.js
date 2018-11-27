@@ -9,8 +9,8 @@ export default class FormUpload extends React.Component {
       action: '',
       headers: {},
       beforeUpload(file) {
-        console.log('upload')
         handleBeforeUpload(file)
+        return false;
       },
       onChange(info) {
         if (info.file.status !== 'uploading') {
