@@ -3,6 +3,7 @@ import FormUpload from '@/components/upload'
 import MarkDown from '@/components/editor/Markdown'
 import { Form, Input, Button, message, Select } from 'antd';
 import api from '../../api'
+import { withRouter} from 'react-router'
 
 const { TextArea } = Input;
 const FormItem = Form.Item;
@@ -10,16 +11,33 @@ const Option = Select.Option
 
 
 class CustomizedForm extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       formLayout: 'horizontal',
       fields: {},
       fileList: [],
+      markdown: '',
+      val: '',
       html: '',
-      val: ''
+      asyncData: {}
     };
   }
+
+  componentDidMount() {
+    console.log(this.props)
+		api.getArticleById({
+      postId: this.props.match.params.postId
+    }).then(res => {
+			if (res.code === 0) {
+				this.setState({
+          asyncData: res.data[0],
+          val: res.data[0]['content'],
+          html: res.data[0]['markdown']
+				})
+			}
+    })
+	}
 
   handleFormLayoutChange = (e) => {
     this.setState({ formLayout: e.target.value });
@@ -30,32 +48,24 @@ class CustomizedForm extends React.Component {
     this.props.form.validateFields((err, values) => {
       if (!err) {
         console.log('Received values of form: ', values);
-        const { fileList } = this.state
-        const formData = new FormData()
-        fileList.map((file) => {
-          return formData.append('file', file.originFileObj)
-        })
-        formData.append('markdown', this.state.html)
-        formData.append('content', this.state.val)
-        for (let key in values) {
-          formData.append(key, values[key])
+        const params = {
+          ...values,
+          markdown: this.state.html,
+          content: this.state.val,
+          postId: this.props.match.params.postId
         }
-        api.addArticle(formData, {
-          headers: {
-            'Content-Type': 'multipart/form-data'
-          }
-        }).then(res => {
+        api.updateArticle(params).then(res => {
             if (res.code === 0) {
-              message.success('提交成功');
+              message.success('修改成功');
             }
           })
       }
     });
   }
 
-  onChange = (file) => {
-    this.setState(() => ({
-      fileList: [...file]
+  beforUpload = (file) => {
+    this.setState(({ fileList }) => ({
+      fileList: [...fileList, file]
     }))
   }
 
@@ -69,7 +79,7 @@ class CustomizedForm extends React.Component {
 
   render() {
     const { getFieldDecorator } = this.props.form;
-    const { formLayout } = this.state;
+    const { formLayout, asyncData } = this.state;
     const formItemLayout = formLayout === 'horizontal' ? {
       labelCol: { span: 2 },
       wrapperCol: { span: 8 },
@@ -86,8 +96,9 @@ class CustomizedForm extends React.Component {
           >
             {getFieldDecorator('articleTitle', {
               rules: [{ required: true, message: 'Please enter the title!', whitespace: true }],
+              initialValue: asyncData.title 
             })(
-              <Input />
+              <Input/>
             )}
           </FormItem>
           <FormItem
@@ -95,9 +106,10 @@ class CustomizedForm extends React.Component {
             {...formItemLayout}
           >
             {getFieldDecorator('keywords', {
-              rules: [{ required: true, message: 'Please enter the keywords!', whitespace: true }],
+              rules: [{ required: true, message: 'Please enter the keywords!', whitespace: true}],
+              initialValue: asyncData.keyword
             })(
-              <Input />
+              <Input/>
             )}
           </FormItem>
 					<FormItem
@@ -119,10 +131,11 @@ class CustomizedForm extends React.Component {
 					<FormItem
             label="文章描述"
 						{...formItemLayout}
-						wrapperCol = {{span: 14}}
+						wrapperCol = {{span: 20}}
           >
             {getFieldDecorator('description', {
               rules: [{ required: true, message: 'Please enter the description!', whitespace: true }],
+              initialValue: asyncData.descript 
             })(
 						  <TextArea placeholder="" autosize={{ minRows: 2, maxRows: 6 }} />
             )}
@@ -130,26 +143,20 @@ class CustomizedForm extends React.Component {
 					<FormItem
             label="文章内容"
 						{...formItemLayout}
-						wrapperCol = {{span: 14}}
+						wrapperCol = {{span: 20}}
           >
-            <MarkDown callback={this.callback} html={this.state.html} val={this.state.val}></MarkDown>
-          </FormItem>
-          <FormItem
-            label="添加banner"
-						{...formItemLayout}
-						wrapperCol = {{span: 14}}
-          >
-            <FormUpload handleOnChange={this.onChange} ></FormUpload>
+            <MarkDown callback={this.callback} val={this.state.val} html={this.state.html}></MarkDown>
           </FormItem>
           <FormItem {...buttonItemLayout}>
-            <Button type="primary" onClick={this.handleSubmit}>Submit</Button>
+            <Button type="primary" onClick={this.handleSubmit}>确认修改</Button>
           </FormItem>
         </Form>
       </div>
     );
   }
 }
-CustomizedForm = Form.create({})(CustomizedForm);
+// 非路由组件需要使用withRouter 获取location match params
+CustomizedForm = withRouter(Form.create({})(CustomizedForm))
 export default class AddArticle extends React.Component {
 	render() {
 		return (

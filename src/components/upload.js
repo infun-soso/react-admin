@@ -1,30 +1,22 @@
-import {Icon, message, Button, Upload} from 'antd'
+import {Icon, Button, Upload} from 'antd'
 import React from 'react'
 
 export default class FormUpload extends React.Component {
   render() {
-    const { handleBeforeUpload } = this.props
+    const { handleOnChange } = this.props
     const props = {
       name: 'banner',
       action: '',
+      multiple: true,
       headers: {},
       beforeUpload(file) {
-        handleBeforeUpload(file)
         return false;
       },
       onChange(info) {
         if (info.file.status !== 'uploading') {
-          console.log(info.file, info.fileList);
-        }
-        if (info.file.status === 'done') {
-          message.success(`${info.file.name} file uploaded successfully`);
-        } else if (info.file.status === 'error') {
-          message.error(`${info.file.name} file upload failed.`);
+          handleOnChange(info.fileList)
         }
       },
-      customRequest() {
-        
-      }
     }
     
     return (

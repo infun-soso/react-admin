@@ -34,6 +34,11 @@ const routeMap = [
 		component: LazyLoad(() => import('../pages/article/addArticle'))
 	},
 	{
+		path: '/updatearticle/:postId',
+		name: '修改文章',
+		component: LazyLoad(() => import('../pages/article/updateArticle'))
+	},
+	{
 		path: '/articlelist',
 		name: '文章列表',
 		component: LazyLoad(() => import('../pages/article/articleList'))

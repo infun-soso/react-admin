@@ -29,84 +29,92 @@ class Markdown extends React.Component {
     }
     componentWillMount () {
         this.setState({
-            val: this.props.value || '/*支持markdown*/'
+            val: this.props.val || '/*支持markdown*33/'
         }, () => {
             this.renderHtml()
         })
     }
-    // 插入图片
-    async insertImg(e) { 
-        let formData = new FormData(),
-            img = '';
-        formData.append('img', e.target.files[0]);
-        try {
-            let data = await this.axios({
-                method: 'post',
-                url: 'http://localhost:3000/markdown_upload_img',
-                data: formData
-            })
-            img = data.data.img
-        } catch (e) {
-            console.log(e)
-        }
-        
-        let val = `![图片描述](${img})`
-        this.setCursorPosition(this.refs.text, val, 6)
-    }
-    //插入链接
-    insertLink () { 
-        this.setState({
-            linkMask: false,
-            link: this.refs.link.value
-        }, () => {
-            let val = `[链接描述](${this.state.link})`
-            this.setCursorPosition(this.refs.text, val, 5)
-        })
-    }
-    //插入代码块
-    insertCode () {
-        let val = `
-\`\`\`
 
-\`\`\``
-        this.setCursorPosition(this.refs.text, val, val.length-4)
-    }
-    // 设置光标位置
-    setCursorPosition (dom,val,posLen) { 
-        var cursorPosition = 0;
-        if(dom.selectionStart){
-            cursorPosition = dom.selectionStart;
-        }
-        this.insertAtCursor(dom,val);
-        dom.focus();
-        dom.setSelectionRange(dom.value.length,cursorPosition + (posLen || val.length));
+    componentWillReceiveProps(props) {
         this.setState({
-            val: dom.value
+            val: props.val,
+            html: props.html
         })
     }
-    // 光标所在位置插入字符
-    insertAtCursor(dom, val) { 
-        if (document.selection){
-            dom.focus();
-            const sel = document.selection.createRange();
-            sel.text = val;
-            sel.select();
-        }else if (dom.selectionStart || dom.selectionStart === '0'){
-            let startPos = dom.selectionStart;
-            let endPos = dom.selectionEnd;
-            let restoreTop = dom.scrollTop;
-            dom.value = dom.value.substring(0, startPos) + val + dom.value.substring(endPos, dom.value.length);
-            if (restoreTop > 0){
-                dom.scrollTop = restoreTop;
-            }
-            dom.focus();
-            dom.selectionStart = startPos + val.length;
-            dom.selectionEnd = startPos + val.length;
-        } else {
-            dom.value += val;
-            dom.focus();
-        }
-    }
+
+    // 插入图片
+//     async insertImg(e) { 
+//         let formData = new FormData(),
+//             img = '';
+//         formData.append('img', e.target.files[0]);
+//         try {
+//             let data = await this.axios({
+//                 method: 'post',
+//                 url: 'http://localhost:3000/markdown_upload_img',
+//                 data: formData
+//             })
+//             img = data.data.img
+//         } catch (e) {
+//             console.log(e)
+//         }
+        
+//         let val = `![图片描述](${img})`
+//         this.setCursorPosition(this.refs.text, val, 6)
+//     }
+//     //插入链接
+//     insertLink () { 
+//         this.setState({
+//             linkMask: false,
+//             link: this.refs.link.value
+//         }, () => {
+//             let val = `[链接描述](${this.state.link})`
+//             this.setCursorPosition(this.refs.text, val, 5)
+//         })
+//     }
+//     //插入代码块
+//     insertCode () {
+//         let val = `
+// \`\`\`
+
+// \`\`\``
+//         this.setCursorPosition(this.refs.text, val, val.length-4)
+//     }
+    // 设置光标位置
+    // setCursorPosition (dom,val,posLen) { 
+    //     var cursorPosition = 0;
+    //     if(dom.selectionStart){
+    //         cursorPosition = dom.selectionStart;
+    //     }
+    //     this.insertAtCursor(dom,val);
+    //     dom.focus();
+    //     dom.setSelectionRange(dom.value.length,cursorPosition + (posLen || val.length));
+    //     this.setState({
+    //         val: dom.value
+    //     })
+    // }
+    // // 光标所在位置插入字符
+    // insertAtCursor(dom, val) { 
+    //     if (document.selection){
+    //         dom.focus();
+    //         const sel = document.selection.createRange();
+    //         sel.text = val;
+    //         sel.select();
+    //     }else if (dom.selectionStart || dom.selectionStart === '0'){
+    //         let startPos = dom.selectionStart;
+    //         let endPos = dom.selectionEnd;
+    //         let restoreTop = dom.scrollTop;
+    //         dom.value = dom.value.substring(0, startPos) + val + dom.value.substring(endPos, dom.value.length);
+    //         if (restoreTop > 0){
+    //             dom.scrollTop = restoreTop;
+    //         }
+    //         dom.focus();
+    //         dom.selectionStart = startPos + val.length;
+    //         dom.selectionEnd = startPos + val.length;
+    //     } else {
+    //         dom.value += val;
+    //         dom.focus();
+    //     }
+    // }
     handleInput (val) {
         this.setState({
             val
@@ -120,7 +128,7 @@ class Markdown extends React.Component {
             html: marked(this.state.val)
         }, () => {
             let {val, html} = this.state
-            this.props.callback && this.props.callback({markdown: val, html})
+            this.props.callback && this.props.callback({val: val, html})
         })
     }
 

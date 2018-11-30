@@ -10,6 +10,7 @@ export const menu = [
 		icon: 'desktop',
 		children: [
 			{ name: '发表文章', url: 'addarticle' },
+			{ name: '修改文章', url: 'updatearticle' },
 			{ name: '文章列表', url: 'articlelist' },
 		]
 	},
