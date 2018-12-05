@@ -1,5 +1,5 @@
 import React from 'react'
-import FormUpload from '@/components/upload'
+// import FormUpload from '@/components/upload'
 import MarkDown from '@/components/editor/Markdown'
 import { Form, Input, Button, message, Select } from 'antd';
 import api from '../../api'

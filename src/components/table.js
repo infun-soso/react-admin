@@ -45,7 +45,7 @@ class MyTable extends React.Component {
       key: 'action',
       render: (text, scope, record) => (
         <span onClick={() => this.handleUpdate(text, scope, record)}>
-          <a href="javascript:;">修改</a>
+          修改
           {/* <Divider type="vertical" /> */}
           {/* <a href="##">删除</a> */}
         </span>
