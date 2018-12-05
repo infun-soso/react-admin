@@ -104,17 +104,21 @@ class CustomizedForm extends React.Component {
             label="文章标签"
             {...formItemLayout}
           >
-						  <Select
+            {getFieldDecorator('tags', {
+              rules: [{ required: true, type: 'array', message: 'Please choose tag!', whitespace: true }],
+            })(
+              <Select
                 showSearch
                 mode="multiple"
-                placeholder="Select a tag"
+                placeholder="选择标签"
                 optionFilterProp="children"
                 filterOption={(input, option) => option.props.children.toLowerCase().indexOf(input.toLowerCase()) >= 0}
               >
-                <Option value="jack">Jack</Option>
-                <Option value="lucy">Lucy</Option>
-                <Option value="tom">Tom</Option>
+                <Option value="Javascript">Javascript</Option>
+                <Option value="Node">Node</Option>
+                <Option value="Vue">Vue</Option>
               </Select>
+            )}
           </FormItem>
 					<FormItem
             label="文章描述"
