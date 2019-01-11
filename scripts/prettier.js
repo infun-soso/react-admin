@@ -6,9 +6,12 @@
  *----------*****--------------
  */
 
+// 这个文件只能prettier src目录下的文件 router.config.js不能 所以提交过不去
+
 const glob = require('glob');
 const prettier = require('prettier');
 const fs = require('fs');
+
 const prettierConfigPath = require.resolve('../.prettierrc');
 
 let didError = false;
