@@ -22,7 +22,7 @@ export default {
         dynamicImport: {
           loadingComponent: './components/PageLoading/index',
         },
-        esLint: true
+        esLint: true,
       },
     ],
     [
@@ -62,5 +62,11 @@ export default {
   ignoreMomentLocale: true,
   lessLoaderOptions: {
     javascriptEnabled: true,
-  }
+  },
+  proxy: {
+    '/admin': {
+      target: 'http://localhost:4000',
+      changeOrigin: true,
+    },
+  },
 };

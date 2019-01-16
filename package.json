@@ -31,6 +31,7 @@
     "moment": "^2.22.2",
     "path-to-regexp": "^2.4.0",
     "prop-types": "^15.5.10",
+    "query-string": "^6.0.0",
     "rc-animate": "^2.4.4",
     "react": "^16.6.3",
     "react-container-query": "^0.11.0",
@@ -66,8 +67,7 @@
       "prettier --write",
       "git add"
     ],
-    "**/*.{js,jsx}": "npm run lint-staged:js",
-    "**/*.less": "stylelint --syntax less"
+    "**/*.{js,jsx}": "npm run lint-staged:js"
   },
   "engines": {
     "node": ">=8.0.0"

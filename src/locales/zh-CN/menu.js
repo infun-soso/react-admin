@@ -1,5 +1,9 @@
 export default {
   'menu.welcome': '欢迎',
+  'menu.home': '首页',
+  'menu.account': '用户列表',
+  'menu.article': '文章列表',
+  'menu.account-settings': '用户设置',
   'menu.more-blocks': '更多区块',
 
   'menu.account.center': '个人中心',
