@@ -30,6 +30,7 @@ class AddArticle extends React.Component {
             wrapperCol: { span: 14, offset: 2 },
           }
         : null;
+        
     return (
       <PageHeaderWrapper title="添加文章">
         <Card bordered={false}>
