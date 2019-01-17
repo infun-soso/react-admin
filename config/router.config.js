@@ -3,8 +3,9 @@ export default [
     path: '/user',
     component: '../layouts/UserLayout',
     routes: [
+      { path: '/user', redirect: '/user/login' },
       {
-        path: '/user',
+        path: '/user/login',
         component: './Login',
       },
     ],
@@ -36,7 +37,18 @@ export default [
         path: '/article',
         name: 'article',
         icon: 'smile',
-        component: './Article',
+        routes: [
+          {
+            path: '/article/list',
+            name: 'articleList',
+            component: './Article',
+          },
+          {
+            path: '/article/add',
+            name: 'addArticle',
+            component: './Article/addArticle',
+          },
+        ],
       },
       {
         path: 'https://github.com/umijs/umi-blocks/tree/master/ant-design-pro',
