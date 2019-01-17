@@ -18,6 +18,7 @@ class CustomizedForm extends React.Component {
       fileList: [],
       html: '',
       val: ''
+      
     };
   }
 
