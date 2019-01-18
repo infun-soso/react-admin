@@ -1,5 +1,6 @@
 import React from 'react';
 import PageHeaderWrapper from '@/components/PageHeaderWrapper';
+import Markdown from '@/components/Markdown';
 import { Card, Form, Input, Button, Select } from 'antd';
 
 const FormItem = Form.Item;
@@ -16,7 +17,7 @@ class AddArticle extends React.Component {
     const {
       form: { getFieldDecorator },
     } = this.props;
-    const { formLayout } = this.state;
+    const { formLayout, html, val } = this.state;
     const formItemLayout =
       formLayout === 'horizontal'
         ? {
@@ -30,7 +31,7 @@ class AddArticle extends React.Component {
             wrapperCol: { span: 14, offset: 2 },
           }
         : null;
-        
+
     return (
       <PageHeaderWrapper title="添加文章">
         <Card bordered={false}>
@@ -81,7 +82,7 @@ class AddArticle extends React.Component {
               })(<TextArea placeholder="" autosize={{ minRows: 2, maxRows: 6 }} />)}
             </FormItem>
             <FormItem label="文章内容" {...formItemLayout}>
-              {/* <MarkDown callback={this.callback} html={this.state.html} val={this.state.val} /> */}
+              <Markdown callback={this.callback} html={html} val={val} />
             </FormItem>
             <FormItem label="添加banner" {...formItemLayout}>
               {/* <FormUpload handleOnChange={this.onChange} /> */}

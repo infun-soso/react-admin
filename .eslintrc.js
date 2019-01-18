@@ -15,6 +15,7 @@ module.exports = {
   rules: {
     'react/jsx-filename-extension': [1, { extensions: ['.js'] }],
     'react/jsx-wrap-multilines': 0,
+    'react/destructuring-assignment': 0,
     'react/prop-types': 0,
     'react/forbid-prop-types': 0,
     'react/jsx-one-expression-per-line': 0,
@@ -30,6 +31,7 @@ module.exports = {
     'no-underscore-dangle': 0,
     'no-script-url': 0,
     'no-console': 0,
+    'no-param-reassign': 0,
   },
   settings: {
     polyfills: ['fetch', 'promises', 'url'],
