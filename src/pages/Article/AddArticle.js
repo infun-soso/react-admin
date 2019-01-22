@@ -11,6 +11,19 @@ const { TextArea } = Input;
 class AddArticle extends React.Component {
   state = {
     formLayout: 'horizontal',
+    val: '',
+    html: '',
+  };
+
+  callback = data => {
+    const { val, html } = data;
+    this.setState({
+      val,
+      html,
+    });
+    this.props.form.setFieldsValue({
+      content: val,
+    });
   };
 
   render() {
@@ -35,7 +48,7 @@ class AddArticle extends React.Component {
     return (
       <PageHeaderWrapper title="添加文章">
         <Card bordered={false}>
-          <Form layout={formLayout}>
+          <Form layout={formLayout} onSubmit={this.handleSubmit}>
             <FormItem label="文章标题" {...formItemLayout}>
               {getFieldDecorator('articleTitle', {
                 rules: [{ required: true, message: 'Please enter the title!', whitespace: true }],
@@ -81,16 +94,18 @@ class AddArticle extends React.Component {
                 ],
               })(<TextArea placeholder="" autosize={{ minRows: 2, maxRows: 6 }} />)}
             </FormItem>
-            <FormItem label="文章内容" {...formItemLayout}>
-              <Markdown callback={this.callback} html={html} val={val} />
-            </FormItem>
+            <Markdown
+              callback={this.callback}
+              html={html}
+              val={val}
+              getFieldDecorator={getFieldDecorator}
+              {...formItemLayout}
+            />
             <FormItem label="添加banner" {...formItemLayout}>
               {/* <FormUpload handleOnChange={this.onChange} /> */}
             </FormItem>
             <FormItem {...buttonItemLayout}>
-              <Button type="primary" onClick={this.handleSubmit}>
-                Submit
-              </Button>
+              <Button type="primary">Submit</Button>
             </FormItem>
           </Form>
         </Card>
