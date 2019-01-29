@@ -32,6 +32,8 @@ module.exports = {
     'no-script-url': 0,
     'no-console': 0,
     'no-param-reassign': 0,
+    'no-restricted-syntax': ['error', 'WithStatement'],
+    'guard-for-in': 0,
   },
   settings: {
     polyfills: ['fetch', 'promises', 'url'],

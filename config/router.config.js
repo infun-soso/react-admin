@@ -39,6 +39,11 @@ export default [
         icon: 'smile',
         routes: [
           {
+            path: '/article/edit/:_id',
+            hideInMenu: true,
+            component: './Article/EditArticle',
+          },
+          {
             path: '/article/list',
             name: 'articleList',
             component: './Article',
@@ -46,7 +51,7 @@ export default [
           {
             path: '/article/add',
             name: 'addArticle',
-            component: './Article/addArticle',
+            component: './Article/AddArticle',
           },
         ],
       },

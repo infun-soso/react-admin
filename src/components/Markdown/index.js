@@ -27,7 +27,10 @@ class Markdown extends React.PureComponent {
   }
 
   handleInput(val) {
-    this.props.callback({ val, html: marked(val) });
+    this.props.callback({
+      val,
+      html: marked(val),
+    });
   }
 
   render() {

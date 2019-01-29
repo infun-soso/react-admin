@@ -4,6 +4,10 @@ export async function getArticleList() {
   return request('/admin/index');
 }
 
-export async function addArticleList() {
-  return request('/api/users');
+export async function addArticle(data) {
+  return request.post('/admin/addArticle', {
+    method: 'POST',
+    data,
+    requestType: 'formData',
+  });
 }

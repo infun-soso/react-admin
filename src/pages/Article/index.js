@@ -2,6 +2,8 @@ import React from 'react';
 import PageHeaderWrapper from '@/components/PageHeaderWrapper';
 import { Card, Table, Form, Row, Col, Select, Input, Button, Tag } from 'antd';
 import { connect } from 'dva';
+import router from 'umi/router';
+import styles from './style.less';
 
 const FormItem = Form.Item;
 @connect(({ article }) => ({
@@ -26,6 +28,12 @@ class ArticleList extends React.Component {
       render: time => new Date(time).toLocaleString(),
     },
     {
+      title: '封面图',
+      dataIndex: 'images',
+      key: 'images',
+      render: src => <img alt="" src={src} className={styles.surfaceImg} />,
+    },
+    {
       title: '关键字',
       dataIndex: 'keyword',
       key: 'keyword',
@@ -48,22 +56,25 @@ class ArticleList extends React.Component {
       title: 'Action',
       key: 'action',
       render: (text, scope, record) => (
-        <span onClick={() => this.handleUpdate(text, scope, record)}>
-          <a href="javascript:;">修改</a>
-          {/* <Divider type="vertical" /> */}
-          {/* <a href="##">删除</a> */}
-        </span>
+        <span onClick={this.handleEdit.bind(this, text, scope, record)}>修改</span>
       ),
     },
   ];
 
   componentWillMount() {
-    console.log('mount');
     const { dispatch } = this.props;
     dispatch({
       type: 'article/getArticleList',
     });
   }
+
+  handleEdit = (text, scope) => {
+    router.push(`/article/edit/${scope._id}`);
+  };
+
+  handleSearch = () => {
+    console.log('handleSearch');
+  };
 
   renderSimpleForm() {
     const { searchKeyword } = this.state;

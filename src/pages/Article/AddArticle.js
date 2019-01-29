@@ -1,5 +1,7 @@
 import React from 'react';
+import { connect } from 'dva';
 import PageHeaderWrapper from '@/components/PageHeaderWrapper';
+import FormUpload from '@/components/FormUpload';
 import Markdown from '@/components/Markdown';
 import { Card, Form, Input, Button, Select } from 'antd';
 
@@ -7,22 +9,49 @@ const FormItem = Form.Item;
 const { Option } = Select;
 const { TextArea } = Input;
 
+@connect()
 @Form.create()
 class AddArticle extends React.Component {
   state = {
     formLayout: 'horizontal',
-    val: '',
+    fileList: [],
     html: '',
   };
 
   callback = data => {
     const { val, html } = data;
     this.setState({
-      val,
       html,
     });
     this.props.form.setFieldsValue({
       content: val,
+    });
+  };
+
+  onChange = file => {
+    this.setState(() => ({
+      fileList: [...file],
+    }));
+  };
+
+  handleSubmit = e => {
+    e.preventDefault();
+    this.props.form.validateFields((err, values) => {
+      if (!err) {
+        console.log('Received values of form: ', values);
+        const { fileList } = this.state;
+        const formData = new FormData();
+        fileList.map(file => formData.append('file', file.originFileObj));
+        formData.append('markdown', this.state.html);
+        for (const key in values) {
+          formData.append(key, values[key]);
+        }
+        console.log(formData.get('file'));
+        this.props.dispatch({
+          type: 'article/addArticle',
+          payload: formData,
+        });
+      }
     });
   };
 
@@ -41,10 +70,9 @@ class AddArticle extends React.Component {
     const buttonItemLayout =
       formLayout === 'horizontal'
         ? {
-            wrapperCol: { span: 14, offset: 2 },
+            wrapperCol: { span: 14, offset: 3 },
           }
         : null;
-
     return (
       <PageHeaderWrapper title="添加文章">
         <Card bordered={false}>
@@ -74,7 +102,7 @@ class AddArticle extends React.Component {
               })(
                 <Select
                   showSearch
-                  mode="multiple"
+                  mode="tags"
                   placeholder="选择标签"
                   optionFilterProp="children"
                   filterOption={(input, option) =>
@@ -102,10 +130,12 @@ class AddArticle extends React.Component {
               {...formItemLayout}
             />
             <FormItem label="添加banner" {...formItemLayout}>
-              {/* <FormUpload handleOnChange={this.onChange} /> */}
+              <FormUpload handleOnChange={this.onChange} />
             </FormItem>
             <FormItem {...buttonItemLayout}>
-              <Button type="primary">Submit</Button>
+              <Button type="primary" htmlType="submit">
+                保存
+              </Button>
             </FormItem>
           </Form>
         </Card>

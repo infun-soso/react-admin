@@ -39,6 +39,7 @@
     "react-container-query": "^0.11.0",
     "react-document-title": "^2.0.3",
     "react-media": "^1.8.0",
+    "react-router-dom": "^4.3.1",
     "umi-request": "^1.0.0"
   },
   "devDependencies": {

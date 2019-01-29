@@ -1,4 +1,5 @@
-import { getArticleList } from '@/services/article';
+import { getArticleList, addArticle } from '@/services/article';
+import { message } from 'antd';
 
 export default {
   namespace: 'article',
@@ -19,6 +20,15 @@ export default {
         });
       } else {
         console.log(msg);
+      }
+    },
+    *addArticle({ payload }, { call }) {
+      const response = yield call(addArticle, payload);
+      console.log(response);
+      if (response.code === 0) {
+        message.success('添加成功');
+      } else {
+        message.error(response.msg);
       }
     },
   },
