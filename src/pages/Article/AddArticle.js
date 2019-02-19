@@ -46,7 +46,6 @@ class AddArticle extends React.Component {
         for (const key in values) {
           formData.append(key, values[key]);
         }
-        console.log(formData.get('file'));
         this.props.dispatch({
           type: 'article/addArticle',
           payload: formData,
@@ -64,7 +63,7 @@ class AddArticle extends React.Component {
       formLayout === 'horizontal'
         ? {
             labelCol: { span: 3 },
-            wrapperCol: { span: 8 },
+            wrapperCol: { span: 19 },
           }
         : null;
     const buttonItemLayout =
@@ -127,7 +126,7 @@ class AddArticle extends React.Component {
               html={html}
               val={val}
               getFieldDecorator={getFieldDecorator}
-              {...formItemLayout}
+              formItemLayout={formItemLayout}
             />
             <FormItem label="添加banner" {...formItemLayout}>
               <FormUpload handleOnChange={this.onChange} />

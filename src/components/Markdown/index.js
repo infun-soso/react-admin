@@ -29,22 +29,22 @@ class Markdown extends React.PureComponent {
   handleInput(val) {
     this.props.callback({
       val,
-      html: marked(val),
     });
   }
 
   render() {
-    const { getFieldDecorator } = this.props;
+    const { getFieldDecorator, formItemLayout } = this.props;
     return (
-      <FormItem label="文章内容" labelCol={this.props.labelCol} wrapperCol={{ span: 17 }}>
+      <FormItem label="文章内容" {...formItemLayout}>
         {getFieldDecorator('content', {
+          initialValue: this.props.html,
           rules: [{ required: true, message: 'Please enter the content!', whitespace: true }],
         })(
           <TextArea
             onChange={e => {
               this.handleInput(e.target.value);
             }}
-            autosize={{ minRows: 10 }}
+            autosize={{ minRows: 10, maxRows: 30 }}
           />
         )}
       </FormItem>

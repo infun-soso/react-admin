@@ -6,7 +6,7 @@ export default {
   'menu.article.articleList': '文章列表',
   'menu.article.addArticle': '添加文章',
   'menu.article.editArticle': '修改文章',
-  'menu.account-settings': '用户设置',
+  'menu.accountSetting': '用户设置',
   'menu.more-blocks': '更多区块',
 
   'menu.account.center': '个人中心',

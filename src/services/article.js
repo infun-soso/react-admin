@@ -11,3 +11,20 @@ export async function addArticle(data) {
     requestType: 'formData',
   });
 }
+
+export async function getArticle({ postId }) {
+  return request('/admin/post', {
+    method: 'GET',
+    params: {
+      postId,
+    },
+  });
+}
+
+export async function editArticle(data) {
+  console.log(data, 1);
+  return request('/admin/updateArticle', {
+    method: 'POST',
+    data,
+  });
+}
