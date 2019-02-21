@@ -56,7 +56,7 @@ class ArticleList extends React.Component {
       title: 'Action',
       key: 'action',
       render: (text, scope, record) => (
-        <span onClick={this.handleEdit.bind(this, text, scope, record)}>修改</span>
+        <a onClick={this.handleEdit.bind(this, text, scope, record)}>修改</a>
       ),
     },
   ];

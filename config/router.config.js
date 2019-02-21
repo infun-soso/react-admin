@@ -3,7 +3,10 @@ export default [
     path: '/user',
     component: '../layouts/UserLayout',
     routes: [
-      { path: '/user', redirect: '/user/login' },
+      {
+        path: '/user',
+        redirect: '/user/login',
+      },
       {
         path: '/user/login',
         component: './Login',
@@ -18,12 +21,11 @@ export default [
         path: '/',
         redirect: '/welcome',
       },
-      // dashboard
       {
-        path: '/welcome',
-        name: 'welcome',
+        name: 'workplace',
         icon: 'smile',
-        component: './Welcome',
+        path: '/workplace',
+        component: './Workplace',
       },
       // 用户管理
       {
@@ -55,16 +57,11 @@ export default [
           },
         ],
       },
-      // {
-      //   path: 'https://github.com/umijs/umi-blocks/tree/master/ant-design-pro',
-      //   name: 'more-blocks',
-      //   icon: 'block',
-      // },
       {
         name: 'accountSetting',
         icon: 'smile',
         path: '/accountSetting',
-        component: './accountSetting',
+        component: './AccountSetting',
       },
     ],
   },

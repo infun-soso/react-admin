@@ -1,8 +1,15 @@
 import React from 'react';
+import { connect } from 'dva';
 import PageHeaderWrapper from '@/components/PageHeaderWrapper';
-import { Card, Table, Form, Row, Col, Input, Select, Button } from 'antd';
+import { Card, Table, Form, Row, Col, Input, Select, Button, Modal } from 'antd';
 
+const ModalConfirm = Modal.confirm;
 const FormItem = Form.Item;
+
+@connect(({ account, loading }) => ({
+  loading: loading.effects['account/fetchAccounts'],
+  accounts: account.accountList,
+}))
 @Form.create()
 class AccountList extends React.Component {
   state = {
@@ -23,13 +30,13 @@ class AccountList extends React.Component {
     },
     {
       title: '手机',
-      dataIndex: 'mobile',
-      key: 'mobile',
+      dataIndex: 'phone',
+      key: 'phone',
     },
     {
       title: '个人签名',
-      dataIndex: 'sign',
-      key: 'sign',
+      dataIndex: 'profile',
+      key: 'profile',
     },
     {
       title: '类型',
@@ -44,11 +51,31 @@ class AccountList extends React.Component {
     {
       title: '操作',
       key: 'action',
-      render: (text, scope, record) => (
-        <span onClick={this.handleEdit.bind(this, text, scope, record)}>删除</span>
-      ),
+      render: (...rest) => <a onClick={this.handleDelete.bind(this, rest)}>删除</a>,
     },
   ];
+
+  componentDidMount() {
+    this.props.dispatch({
+      type: 'account/fetchAccounts',
+    });
+  }
+
+  handleDelete = rest => {
+    ModalConfirm({
+      title: '确定删除?',
+      content: '删除后不可恢复',
+      onOk: () => {
+        this.props.dispatch({
+          type: 'account/deleteAccount',
+          payload: rest[2],
+        });
+      },
+      onCancel() {
+        console.log('Cancel');
+      },
+    });
+  };
 
   renderSimpleForm() {
     const { searchKeyword } = this.state;
@@ -103,19 +130,19 @@ class AccountList extends React.Component {
   }
 
   render() {
-    const { articleList } = this.props;
+    const { accounts } = this.props;
     return (
       <PageHeaderWrapper title="用户列表">
         <Card bordered={false}>
           <div className="">
             <div className="">{this.renderSimpleForm()}</div>
             <Table
-              // loading={this.state.loading}
-              // pagination={pagination}
+              loading={this.props.loading}
+              pagination="bottom"
               rowKey={record => record._id}
               columns={this.columns}
               bordered
-              dataSource={articleList}
+              dataSource={accounts}
             />
           </div>
         </Card>

@@ -2,13 +2,13 @@
 export default {
   // 支持值为 Object 和 Array
   'GET /api/currentUser': {
-    name: 'Serati Ma',
-    avatar: 'https://gw.alipayobjects.com/zos/rmsportal/BiazfanxmamNRoxxVxka.png',
+    name: 'Infun',
+    avatar: 'http://pic.wyfs.top/avatar.jpeg',
     userid: '00000001',
-    email: 'antdesign@alipay.com',
-    signature: '海纳百川，有容乃大',
-    title: '交互专家',
-    group: '蚂蚁金服－某某某事业群－某某平台部－某某技术部－UED',
+    email: '973394690@qq.com',
+    profile: '一个会打篮球的程序员',
+    title: '前端开发工程师',
+    group: '北京小叶子科技有限公司-平台事业部-产品研发',
     tags: [
       {
         key: '0',
@@ -16,11 +16,11 @@ export default {
       },
       {
         key: '1',
-        label: '专注设计',
+        label: '帅气',
       },
       {
         key: '2',
-        label: '辣~',
+        label: 'tall',
       },
       {
         key: '3',
@@ -28,11 +28,11 @@ export default {
       },
       {
         key: '4',
-        label: '川妹子',
+        label: '阳光',
       },
       {
         key: '5',
-        label: '海纳百川',
+        label: '运动男孩',
       },
     ],
     notifyCount: 12,
@@ -40,16 +40,16 @@ export default {
     country: 'China',
     geographic: {
       province: {
-        label: '浙江省',
-        key: '330000',
+        label: '北京',
+        key: '110000',
       },
       city: {
-        label: '杭州市',
-        key: '330100',
+        label: '丰台区',
+        key: '110100',
       },
     },
-    address: '西湖区工专路 77 号',
-    phone: '0752-268888888',
+    address: '大红门街道世华水岸F区',
+    phone: '+86-13701016943',
   },
   // GET POST 可省略
   'GET /api/users': [

@@ -7,6 +7,7 @@ export default {
   'menu.article.addArticle': '添加文章',
   'menu.article.editArticle': '修改文章',
   'menu.accountSetting': '用户设置',
+  'menu.workplace': '工作台',
   'menu.more-blocks': '更多区块',
 
   'menu.account.center': '个人中心',
