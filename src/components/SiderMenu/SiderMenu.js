@@ -1,7 +1,8 @@
 import React, { PureComponent, Suspense } from 'react';
-import { Layout } from 'antd';
+import { Layout, Switch, Icon } from 'antd';
 import classNames from 'classnames';
 import Link from 'umi/link';
+import { connect } from 'dva';
 import styles from './index.less';
 import PageLoading from '../PageLoading';
 import { getDefaultCollapsedSubMenus } from './SiderMenuUtils';
@@ -9,7 +10,8 @@ import { getDefaultCollapsedSubMenus } from './SiderMenuUtils';
 const BaseMenu = React.lazy(() => import('./BaseMenu'));
 const { Sider } = Layout;
 
-export default class SiderMenu extends PureComponent {
+@connect()
+class SiderMenu extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {
@@ -45,11 +47,20 @@ export default class SiderMenu extends PureComponent {
     });
   };
 
+  onThemeChange = navTheme => {
+    console.log(2222);
+    this.props.dispatch({
+      type: 'setting/changeSetting',
+      payload: {
+        navTheme: navTheme ? 'dark' : 'light',
+      },
+    });
+  };
+
   render() {
     const { logo, collapsed, onCollapse, fixSiderbar, theme } = this.props;
     const { openKeys } = this.state;
     const defaultProps = collapsed ? {} : { openKeys };
-
     const siderClassName = classNames(styles.sider, {
       [styles.fixSiderbar]: fixSiderbar,
       [styles.light]: theme === 'light',
@@ -81,7 +92,23 @@ export default class SiderMenu extends PureComponent {
             {...defaultProps}
           />
         </Suspense>
+        {collapsed ? null : (
+          <div className={styles.switchTheme}>
+            <span>
+              <Icon type="bulb" />
+              <span>Switch Theme</span>
+            </span>
+            <Switch
+              onChange={this.onThemeChange}
+              checked={theme === 'dark'}
+              checkedChildren="Dark"
+              unCheckedChildren="Light"
+            />
+          </div>
+        )}
       </Sider>
     );
   }
 }
+
+export default SiderMenu;

@@ -11,7 +11,6 @@ export default {
     *fetchAccounts(_, { call, put }) {
       const response = yield call(fetchAccounts);
       const { code, data, msg } = response;
-      console.log(response);
       if (code === 0) {
         yield put({
           type: 'saveList',
@@ -38,7 +37,6 @@ export default {
       };
     },
     delete(state, action) {
-      console.log(action);
       const { payload } = action;
       return {
         ...state,

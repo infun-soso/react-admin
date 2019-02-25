@@ -73,7 +73,6 @@ class EditArticle extends React.Component {
     const {
       form: { getFieldDecorator },
     } = this.props;
-    console.log(this.props);
     const { formLayout, val } = this.state;
     const formItemLayout =
       formLayout === 'horizontal'

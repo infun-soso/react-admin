@@ -11,7 +11,6 @@ export default {
 
   effects: {
     *getArticleList(_, { call, put }) {
-      console.log('dispatch');
       const response = yield call(getArticleList);
       const { code, data, msg } = response;
       if (code === 0) {
@@ -25,7 +24,6 @@ export default {
     },
     *addArticle({ payload }, { call }) {
       const response = yield call(addArticle, payload);
-      console.log(response);
       if (response.code === 0) {
         message.success('添加成功');
       } else {
@@ -34,7 +32,6 @@ export default {
     },
     *getArticle({ payload }, { call, put }) {
       const response = yield call(getArticle, payload);
-      console.log(response);
       if (response.code === 0) {
         yield put({
           type: 'savePost',
@@ -45,9 +42,7 @@ export default {
       }
     },
     *editArticle({ payload }, { call }) {
-      console.log(payload);
       const response = yield call(editArticle, payload);
-      console.log(response);
       if (response.code === 0) {
         // yield put({
         //   type: 'savePost',
