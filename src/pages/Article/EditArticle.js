@@ -91,13 +91,13 @@ class EditArticle extends React.Component {
       <PageHeaderWrapper title="添加文章">
         <Card bordered={false}>
           <Form layout={formLayout} onSubmit={this.handleSubmit}>
-            <FormItem label="文章标题" {...formItemLayout}>
+            <FormItem label="标题" {...formItemLayout}>
               {getFieldDecorator('articleTitle', {
                 initialValue: this.props.post.title,
                 rules: [{ required: true, message: 'Please enter the title!', whitespace: true }],
               })(<Input />)}
             </FormItem>
-            <FormItem label="文章关键字" {...formItemLayout}>
+            <FormItem label="关键字" {...formItemLayout}>
               {getFieldDecorator('keywords', {
                 initialValue: this.props.post.keyword,
                 rules: [
@@ -105,7 +105,7 @@ class EditArticle extends React.Component {
                 ],
               })(<Input />)}
             </FormItem>
-            <FormItem label="文章标签" {...formItemLayout}>
+            <FormItem label="标签" {...formItemLayout}>
               {getFieldDecorator('tags', {
                 initialValue: this.props.post.tag,
                 rules: [
@@ -132,7 +132,7 @@ class EditArticle extends React.Component {
                 </Select>
               )}
             </FormItem>
-            <FormItem label="文章描述" {...formItemLayout}>
+            <FormItem label="描述" {...formItemLayout}>
               {getFieldDecorator('description', {
                 initialValue: this.props.post.descript,
                 rules: [

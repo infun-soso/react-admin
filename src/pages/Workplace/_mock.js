@@ -50,8 +50,8 @@ const getNotice = [
     description: '希望是一个好东西，也许是最好的，好东西是不会消亡的',
     updatedAt: new Date('2017-07-24'),
     member: '全组都是吴彦祖',
-    href: '',
-    memberLink: '',
+    href: '/account',
+    memberLink: '/account',
   },
   {
     id: 'xxx3',

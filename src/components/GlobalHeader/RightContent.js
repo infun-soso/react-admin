@@ -119,11 +119,11 @@ export default class GlobalHeaderRight extends PureComponent {
         <Tooltip title={formatMessage({ id: 'component.globalHeader.help' })}>
           <a
             target="_blank"
-            href="https://pro.ant.design/docs/getting-started"
+            href="https://github.com/infun-soso"
             rel="noopener noreferrer"
             className={styles.action}
           >
-            <Icon type="question-circle-o" />
+            <Icon type="github" />
           </a>
         </Tooltip>
         <NoticeIcon

@@ -76,19 +76,19 @@ class AddArticle extends React.Component {
       <PageHeaderWrapper title="添加文章">
         <Card bordered={false}>
           <Form layout={formLayout} onSubmit={this.handleSubmit}>
-            <FormItem label="文章标题" {...formItemLayout}>
+            <FormItem label="标题" {...formItemLayout}>
               {getFieldDecorator('articleTitle', {
                 rules: [{ required: true, message: 'Please enter the title!', whitespace: true }],
               })(<Input />)}
             </FormItem>
-            <FormItem label="文章关键字" {...formItemLayout}>
+            <FormItem label="关键字" {...formItemLayout}>
               {getFieldDecorator('keywords', {
                 rules: [
                   { required: true, message: 'Please enter the keywords!', whitespace: true },
                 ],
               })(<Input />)}
             </FormItem>
-            <FormItem label="文章标签" {...formItemLayout}>
+            <FormItem label="标签" {...formItemLayout}>
               {getFieldDecorator('tags', {
                 rules: [
                   {
@@ -102,7 +102,7 @@ class AddArticle extends React.Component {
                 <Select
                   showSearch
                   mode="tags"
-                  placeholder="选择标签"
+                  placeholder="标签"
                   optionFilterProp="children"
                   filterOption={(input, option) =>
                     option.props.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
@@ -114,7 +114,7 @@ class AddArticle extends React.Component {
                 </Select>
               )}
             </FormItem>
-            <FormItem label="文章描述" {...formItemLayout}>
+            <FormItem label="描述" {...formItemLayout}>
               {getFieldDecorator('description', {
                 rules: [
                   { required: true, message: 'Please enter the description!', whitespace: true },

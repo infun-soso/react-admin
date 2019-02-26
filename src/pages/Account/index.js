@@ -18,6 +18,10 @@ class AccountList extends React.Component {
 
   columns = [
     {
+      title: '#',
+      render: (text, record, index) => <span>{index + 1}</span>,
+    },
+    {
       title: '用户名',
       dataIndex: 'username',
       key: 'username',
@@ -50,7 +54,9 @@ class AccountList extends React.Component {
     },
     {
       title: '操作',
+      width: 70,
       key: 'action',
+      fixed: 'right',
       render: (...rest) => <a onClick={this.handleDelete.bind(this, rest)}>删除</a>,
     },
   ];
@@ -137,6 +143,7 @@ class AccountList extends React.Component {
           <div className="">
             <div className="">{this.renderSimpleForm()}</div>
             <Table
+              scroll={{ x: 1200 }}
               loading={this.props.loading}
               pagination="bottom"
               rowKey={record => record._id}

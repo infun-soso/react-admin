@@ -19,11 +19,11 @@ export default [
     routes: [
       {
         path: '/',
-        redirect: '/welcome',
+        redirect: '/workplace',
       },
       {
         name: 'workplace',
-        icon: 'smile',
+        icon: 'dashboard',
         path: '/workplace',
         component: './Workplace',
       },
@@ -31,14 +31,14 @@ export default [
       {
         path: '/account',
         name: 'account',
-        icon: 'smile',
+        icon: 'user',
         component: './Account',
       },
       // 文章管理
       {
         path: '/article',
         name: 'article',
-        icon: 'smile',
+        icon: 'edit',
         routes: [
           {
             path: '/article/edit/:_id',
@@ -58,10 +58,21 @@ export default [
         ],
       },
       {
-        name: 'accountSetting',
-        icon: 'smile',
-        path: '/accountSetting',
-        component: './AccountSetting',
+        name: 'personal',
+        icon: 'setting',
+        path: '/personal',
+        routes: [
+          {
+            name: 'center',
+            path: '/personal/account-center',
+            component: './Personal/accountCenter',
+          },
+          {
+            name: 'settings',
+            path: '/personal/account-setting',
+            component: './Personal/AccountSetting',
+          },
+        ],
       },
     ],
   },

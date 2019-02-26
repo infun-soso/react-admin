@@ -15,6 +15,7 @@ import Footer from './Footer';
 import Header from './Header';
 import Context from './MenuContext';
 import SiderMenu from '@/components/SiderMenu';
+import Exception from '@/components/Exception';
 
 import styles from './BasicLayout.less';
 
@@ -181,7 +182,7 @@ class BasicLayout extends React.PureComponent {
             {...this.props}
           />
           <Content className={styles.content} style={contentStyle}>
-            <Authorized authority={routerConfig} noMatch={<p>Exception403</p>}>
+            <Authorized authority={routerConfig} noMatch={<Exception />}>
               {children}
             </Authorized>
           </Content>

@@ -6,12 +6,12 @@ export default {
   'menu.article.articleList': '文章列表',
   'menu.article.addArticle': '添加文章',
   'menu.article.editArticle': '修改文章',
-  'menu.accountSetting': '用户设置',
   'menu.workplace': '工作台',
   'menu.more-blocks': '更多区块',
 
-  'menu.account.center': '个人中心',
-  'menu.account.settings': '个人设置',
+  'menu.personal': '个人页',
+  'menu.personal.center': '个人中心',
+  'menu.personal.settings': '个人设置',
   'menu.account.trigger': '触发报错',
   'menu.account.logout': '退出登录',
 };
