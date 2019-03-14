@@ -22,7 +22,6 @@ export async function getArticle({ postId }) {
 }
 
 export async function editArticle(data) {
-  console.log(data, 1);
   return request('/admin/updateArticle', {
     method: 'POST',
     data,

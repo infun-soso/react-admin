@@ -43,13 +43,11 @@ export default {
     },
     *editArticle({ payload }, { call }) {
       const response = yield call(editArticle, payload);
-      if (response.code === 0) {
-        // yield put({
-        //   type: 'savePost',
-        //   payload: response.data[0]
-        // });
+      const { code, msg } = response;
+      if (code === 0) {
+        message.success('修改成功');
       } else {
-        message.error(response.msg);
+        message.error(msg);
       }
     },
   },
