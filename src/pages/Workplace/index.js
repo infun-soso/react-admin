@@ -154,6 +154,13 @@ class Workplace extends PureComponent {
         content={pageHeaderContent}
         extraContent={extraContent}
       >
+        <div
+          dangerouslySetInnerHTML={{
+            __html:
+              "<div dangerouslySetInnerHTML={{__html: '&lt;p style=&quot;line-height: 1.5em;&quot;&gt;&lt;img src=&quot;default/20181207/985e992f5cf0f40946001a416c03cbb2.jpg&quot; title=&quot;1.jpg&quot; alt=&quot;1.jpg&quot;&gt;&lt;/p&gt;&lt;p style=&quot;line-height: 1.5em;&quot;&gt;&lt;span style=&quot;font-size: 14px; font-family: 宋体, SimSun;&quot;&gt;12月6日，丹华资本内部邮件消息显示，美国华裔物理学家，美国斯坦福大学终身教授、美国科学院院士、中科院外籍院士，2017年度中华人民共和国国际科学技术合作奖获得者，丹华资本创始人张首晟教授于美国当地时间12月1日去世，终年55岁。&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot;font-family: 宋体, SimSun; font-size: 14px;&quot;&gt;作为凝聚态理论物理领域最杰出的科学家之一，张首晟教授所获物理界重量'}} />",
+          }}
+        />
+
         <Row gutter={24}>
           <Col xl={16} lg={24} md={24} sm={24} xs={24}>
             <Card
@@ -161,7 +168,7 @@ class Workplace extends PureComponent {
               style={{ marginBottom: 24 }}
               title="进行中的项目"
               bordered={false}
-              extra={<Link to="/">全部项目</Link>}
+              extra={<Link to="/">&lt;全部项目</Link>}
               loading={projectLoading}
               bodyStyle={{ padding: 0 }}
             >

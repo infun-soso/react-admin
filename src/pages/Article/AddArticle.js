@@ -3,6 +3,8 @@ import { connect } from 'dva';
 import PageHeaderWrapper from '@/components/PageHeaderWrapper';
 import FormUpload from '@/components/FormUpload';
 import Markdown from '@/components/Markdown';
+import marked from 'marked';
+import highlightJs from 'highlight.js';
 import { Card, Form, Input, Button, Select } from 'antd';
 
 const FormItem = Form.Item;
@@ -12,6 +14,23 @@ const { TextArea } = Input;
 @connect()
 @Form.create()
 class AddArticle extends React.Component {
+  constructor() {
+    super();
+    marked.setOptions({
+      renderer: new marked.Renderer(),
+      gfm: true,
+      pedantic: false,
+      sanitize: false,
+      tables: true,
+      breaks: true,
+      smartLists: true,
+      smartypants: true,
+      highlight(code) {
+        return highlightJs.highlightAuto(code).value;
+      },
+    });
+  }
+
   state = {
     formLayout: 'horizontal',
     fileList: [],
@@ -19,9 +38,9 @@ class AddArticle extends React.Component {
   };
 
   callback = data => {
-    const { val, html } = data;
+    const { val } = data;
     this.setState({
-      html,
+      html: val,
     });
     this.props.form.setFieldsValue({
       content: val,
@@ -39,10 +58,10 @@ class AddArticle extends React.Component {
     this.props.form.validateFields((err, values) => {
       if (!err) {
         console.log('Received values of form: ', values);
-        const { fileList } = this.state;
+        const { fileList, html } = this.state;
         const formData = new FormData();
         fileList.map(file => formData.append('file', file.originFileObj));
-        formData.append('markdown', this.state.html);
+        formData.append('markdown', marked(html));
         for (const key in values) {
           formData.append(key, values[key]);
         }

@@ -65,7 +65,7 @@ export default [
           {
             name: 'center',
             path: '/personal/account-center',
-            component: './Personal/accountCenter',
+            component: './Personal/AccountCenter',
           },
           {
             name: 'settings',
