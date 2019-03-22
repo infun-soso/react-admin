@@ -1,11 +1,11 @@
 import request from '@/utils/request';
 
 export async function getArticleList() {
-  return request('/admin/index');
+  return request('/api/admin/index');
 }
 
 export async function addArticle(data) {
-  return request.post('/admin/addArticle', {
+  return request.post('/api/admin/addArticle', {
     method: 'POST',
     data,
     requestType: 'formData',
@@ -13,7 +13,7 @@ export async function addArticle(data) {
 }
 
 export async function getArticle({ postId }) {
-  return request('/admin/post', {
+  return request('/api/admin/post', {
     method: 'GET',
     params: {
       postId,
@@ -22,7 +22,7 @@ export async function getArticle({ postId }) {
 }
 
 export async function editArticle(data) {
-  return request('/admin/updateArticle', {
+  return request('/api/admin/updateArticle', {
     method: 'POST',
     data,
   });

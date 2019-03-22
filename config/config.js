@@ -64,9 +64,12 @@ export default {
     javascriptEnabled: true,
   },
   proxy: {
-    '/admin': {
+    '/api': {
       target: 'http://localhost:4000',
       changeOrigin: true,
+      pathRewrite: {
+        '^/api': '/',
+      },
     },
   },
 };
