@@ -6,9 +6,9 @@ import { Card, Table, Form, Row, Col, Input, Select, Button, Modal } from 'antd'
 const ModalConfirm = Modal.confirm;
 const FormItem = Form.Item;
 
-@connect(({ account, loading }) => ({
-  loading: loading.effects['account/fetchAccounts'],
-  accounts: account.accountList,
+@connect(({ user, loading }) => ({
+  loading: loading.effects['account/fetchUsers'],
+  userList: user.userList,
 }))
 @Form.create()
 class AccountList extends React.Component {
@@ -19,12 +19,13 @@ class AccountList extends React.Component {
   columns = [
     {
       title: '#',
+      key: 'id',
       render: (text, record, index) => <span>{index + 1}</span>,
     },
     {
       title: '用户名',
-      dataIndex: 'username',
-      key: 'username',
+      dataIndex: 'name',
+      key: 'name',
       render: text => <a href="##">{text}</a>,
     },
     {
@@ -46,35 +47,37 @@ class AccountList extends React.Component {
       title: '类型',
       dataIndex: 'type',
       key: 'type',
+      render: type => <span>{type === 2 ? '管理员' : '普通用户'}</span>,
     },
     {
       title: '创建时间',
       dataIndex: 'create_time',
       key: 'create_time',
+      render: date => <span>{new Date(date).toLocaleString()}</span>,
     },
     {
       title: '操作',
       width: 70,
       key: 'action',
       fixed: 'right',
-      render: (...rest) => <a onClick={this.handleDelete.bind(this, rest)}>删除</a>,
+      render: record => <a onClick={this.handleDelete.bind(this, record)}>删除</a>,
     },
   ];
 
   componentDidMount() {
     this.props.dispatch({
-      type: 'account/fetchAccounts',
+      type: 'user/fetchUsersList',
     });
   }
 
-  handleDelete = rest => {
+  handleDelete = obj => {
     ModalConfirm({
       title: '确定删除?',
       content: '删除后不可恢复',
       onOk: () => {
         this.props.dispatch({
-          type: 'account/deleteAccount',
-          payload: rest[2],
+          type: 'user/deleteUser',
+          payload: obj._id,
         });
       },
       onCancel() {
@@ -136,7 +139,8 @@ class AccountList extends React.Component {
   }
 
   render() {
-    const { accounts } = this.props;
+    const { userList } = this.props;
+    console.log(userList);
     return (
       <PageHeaderWrapper title="用户列表">
         <Card bordered={false}>
@@ -149,7 +153,7 @@ class AccountList extends React.Component {
               rowKey={record => record._id}
               columns={this.columns}
               bordered
-              dataSource={accounts}
+              dataSource={userList}
             />
           </div>
         </Card>

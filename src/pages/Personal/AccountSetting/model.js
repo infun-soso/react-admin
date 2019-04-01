@@ -1,11 +1,12 @@
-import { query as queryUsers, queryCurrent, queryProvince, queryCity } from './service';
+import { query as queryUsers } from '@/services/user';
+import city from './geographic/city.json';
+import province from './geographic/province.json';
 
 export default {
   namespace: 'accountSettings',
 
   state: {
     list: [],
-    currentUser: {},
     province: [],
     city: [],
   },
@@ -18,26 +19,19 @@ export default {
         payload: response,
       });
     },
-    *fetchCurrent(_, { call, put }) {
-      const response = yield call(queryCurrent);
-      yield put({
-        type: 'saveCurrentUser',
-        payload: response,
-      });
-    },
-    *fetchProvince(_, { call, put }) {
+    *fetchProvince(_, { put }) {
       yield put({
         type: 'changeLoading',
         payload: true,
       });
-      const response = yield call(queryProvince);
+      const response = province;
       yield put({
         type: 'setProvince',
         payload: response,
       });
     },
-    *fetchCity({ payload }, { call, put }) {
-      const response = yield call(queryCity, payload);
+    *fetchCity({ payload }, { put }) {
+      const response = city[payload];
       yield put({
         type: 'setCity',
         payload: response,
@@ -50,12 +44,6 @@ export default {
       return {
         ...state,
         list: action.payload,
-      };
-    },
-    saveCurrentUser(state, action) {
-      return {
-        ...state,
-        currentUser: action.payload || {},
       };
     },
     changeNotifyCount(state, action) {

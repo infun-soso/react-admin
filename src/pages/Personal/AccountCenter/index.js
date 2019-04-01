@@ -31,10 +31,10 @@ const operationTabList = [
   },
 ];
 
-@connect(({ loading, accountCenter }) => ({
-  currentUser: accountCenter.currentUser,
-  currentUserLoading: loading.effects['accountCenter/fetchCurrent'],
-}))
+@connect(({ curUser }) => {
+  console.log(curUser.currentUser);
+  return { currentUser: curUser.currentUser };
+})
 class AccountCenter extends PureComponent {
   static getDerivedStateFromProps(props, state) {
     const { match, location } = props;

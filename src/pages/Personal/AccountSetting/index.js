@@ -10,8 +10,8 @@ import NotificationView from './components/notification';
 
 const { Item } = Menu;
 
-@connect(({ accountSettings }) => ({
-  currentUser: accountSettings.currentUser,
+@connect(({ curUser }) => ({
+  currentUser: curUser.currentUser,
 }))
 class AccountSettings extends Component {
   constructor(props) {
@@ -44,10 +44,6 @@ class AccountSettings extends Component {
   }
 
   componentDidMount() {
-    const { dispatch } = this.props;
-    dispatch({
-      type: 'accountSettings/fetchCurrent',
-    });
     window.addEventListener('resize', this.resize);
     this.resize();
   }

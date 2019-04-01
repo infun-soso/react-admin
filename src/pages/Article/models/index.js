@@ -35,7 +35,7 @@ export default {
       if (response.code === 0) {
         yield put({
           type: 'savePost',
-          payload: response.data,
+          payload: response.data[0],
         });
       } else {
         message.error(response.msg);

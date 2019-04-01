@@ -17,10 +17,10 @@ export default [
     path: '/',
     component: '../layouts/BasicLayout',
     routes: [
-      {
-        path: '/',
-        redirect: '/workplace',
-      },
+      // {
+      //   path: '/',
+      //   redirect: '/user/login',
+      // },
       {
         name: 'workplace',
         icon: 'dashboard',

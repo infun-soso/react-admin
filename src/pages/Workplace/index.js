@@ -39,11 +39,57 @@ const links = [
   },
 ];
 
-@connect(({ workplace: { user, project, activities, chart }, loading }) => ({
-  currentUser: user.currentUser,
+const radarOriginData = [
+  {
+    name: '个人',
+    ref: 10,
+    koubei: 8,
+    output: 4,
+    contribute: 5,
+    hot: 7,
+  },
+  {
+    name: '团队',
+    ref: 3,
+    koubei: 9,
+    output: 6,
+    contribute: 3,
+    hot: 1,
+  },
+  {
+    name: '部门',
+    ref: 4,
+    koubei: 1,
+    output: 6,
+    contribute: 5,
+    hot: 7,
+  },
+];
+
+const radarData = [];
+const radarTitleMap = {
+  ref: '引用',
+  koubei: '口碑',
+  output: '产量',
+  contribute: '贡献',
+  hot: '热度',
+};
+radarOriginData.forEach(item => {
+  Object.keys(item).forEach(key => {
+    if (key !== 'name') {
+      radarData.push({
+        name: item.name,
+        label: radarTitleMap[key],
+        value: item[key],
+      });
+    }
+  });
+});
+
+@connect(({ workplace: { curUser, project, activities }, loading }) => ({
+  currentUser: curUser.currentUser,
   project,
   activities,
-  chart,
   currentUserLoading: loading.effects['workplace/fetchUserCurrent'],
   projectLoading: loading.effects['workplace/fetchProjectNotice'],
   activitiesLoading: loading.effects['workplace/fetchActivitiesList'],
@@ -107,7 +153,6 @@ class Workplace extends PureComponent {
       project: { notice },
       projectLoading,
       activitiesLoading,
-      chart: { radarData },
     } = this.props;
 
     const pageHeaderContent =
@@ -154,13 +199,6 @@ class Workplace extends PureComponent {
         content={pageHeaderContent}
         extraContent={extraContent}
       >
-        <div
-          dangerouslySetInnerHTML={{
-            __html:
-              "<div dangerouslySetInnerHTML={{__html: '&lt;p style=&quot;line-height: 1.5em;&quot;&gt;&lt;img src=&quot;default/20181207/985e992f5cf0f40946001a416c03cbb2.jpg&quot; title=&quot;1.jpg&quot; alt=&quot;1.jpg&quot;&gt;&lt;/p&gt;&lt;p style=&quot;line-height: 1.5em;&quot;&gt;&lt;span style=&quot;font-size: 14px; font-family: 宋体, SimSun;&quot;&gt;12月6日，丹华资本内部邮件消息显示，美国华裔物理学家，美国斯坦福大学终身教授、美国科学院院士、中科院外籍院士，2017年度中华人民共和国国际科学技术合作奖获得者，丹华资本创始人张首晟教授于美国当地时间12月1日去世，终年55岁。&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot;font-family: 宋体, SimSun; font-size: 14px;&quot;&gt;作为凝聚态理论物理领域最杰出的科学家之一，张首晟教授所获物理界重量'}} />",
-          }}
-        />
-
         <Row gutter={24}>
           <Col xl={16} lg={24} md={24} sm={24} xs={24}>
             <Card

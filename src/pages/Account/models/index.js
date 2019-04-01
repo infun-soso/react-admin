@@ -1,15 +1,16 @@
-import { fetchAccounts } from '@/services/account';
+import { fetchUsers, delUser } from '@/services/user';
+import { message } from 'antd';
 
 export default {
-  namespace: 'account',
+  namespace: 'user',
 
   state: {
-    accountList: [],
+    userList: [],
   },
 
   effects: {
-    *fetchAccounts(_, { call, put }) {
-      const response = yield call(fetchAccounts);
+    *fetchUsersList(_, { call, put }) {
+      const response = yield call(fetchUsers);
       const { code, data, msg } = response;
       if (code === 0) {
         yield put({
@@ -21,7 +22,13 @@ export default {
       }
     },
 
-    *deleteAccount({ payload }, { put }) {
+    *deleteUser({ payload }, { call, put }) {
+      const response = yield call(delUser, payload);
+      if (response.code === 0) {
+        message.success('删除成功');
+      } else {
+        message.error('删除失败');
+      }
       yield put({
         type: 'delete',
         payload,
@@ -33,14 +40,14 @@ export default {
     saveList(state, action) {
       return {
         ...state,
-        accountList: action.payload.accounts,
+        userList: action.payload,
       };
     },
     delete(state, action) {
       const { payload } = action;
       return {
         ...state,
-        accountList: state.accountList.filter((item, index) => index !== payload),
+        userList: state.userList.filter(item => item._id !== payload),
       };
     },
   },

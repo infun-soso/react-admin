@@ -2,7 +2,7 @@ import { routerRedux } from 'dva/router';
 import { getPageQuery } from './utils/utils';
 import { setAuthority } from './utils/authority';
 import { reloadAuthorized } from './utils/Authorized';
-import { fakeAccountLogin, getFakeCaptcha } from './service';
+import { fakeAccountLogin, getFakeCaptcha } from '../../services/user';
 
 export default {
   namespace: 'userLogin',
@@ -13,14 +13,18 @@ export default {
 
   effects: {
     *login({ payload }, { call, put }) {
-      console.log('login');
       const response = yield call(fakeAccountLogin, payload);
       yield put({
         type: 'changeLoginStatus',
         payload: response,
       });
+      console.log(response);
       // Login successfully
-      if (response.status === 'ok') {
+      if (response.code === 0) {
+        yield put({
+          type: 'curUser/saveCurrentUser',
+          payload: response.data,
+        });
         reloadAuthorized();
         const urlParams = new URL(window.location.href);
         const params = getPageQuery();
