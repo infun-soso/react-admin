@@ -44,11 +44,12 @@ class ArticleList extends React.Component {
       dataIndex: 'tag',
       render: tags => (
         <span>
-          {tags.map(tag => (
-            <Tag color="blue" key={tag}>
-              {tag}
-            </Tag>
-          ))}
+          {tags &&
+            tags.map(tag => (
+              <Tag color="blue" key={tag}>
+                {tag}
+              </Tag>
+            ))}
         </span>
       ),
     },
