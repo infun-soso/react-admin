@@ -1,35 +1,37 @@
 import request from '@/utils/request';
 
+const baseURL = process.env.NODE_ENV === 'development' ? '/api' : '';
+
 export async function query() {
-  return request('/api/admin/users');
+  return request(`${baseURL}/admin/users`);
 }
 // 后台
 
 export async function queryAccountUser() {
-  return request('/api/admin/account-center/currentUser');
+  return request(`${baseURL}/admin/account-center/currentUser`);
 }
 
 export async function queryNotices() {
-  return request('/api/admin/notices');
+  return request(`${baseURL}/admin/notices`);
 }
 
 export async function fakeAccountLogin(params) {
-  return request('/api/admin/login', {
+  return request(`${baseURL}/admin/login`, {
     method: 'POST',
     data: params,
   });
 }
 
 export async function queryCurrent() {
-  return request('/api/admin/currentUser');
+  return request(`${baseURL}/admin/currentUser`);
 }
 
 export async function fetchUsers() {
-  return request('/api/admin/getUsers');
+  return request(`${baseURL}/admin/getUsers`);
 }
 
 export async function delUser(id) {
-  return request.get('/api/admin/delUser', {
+  return request.get(`${baseURL}/admin/delUser`, {
     params: {
       id,
     },
