@@ -1,11 +1,13 @@
 import request from '@/utils/request';
 
+const baseURL = process.env.NODE_ENV === 'development' ? '/api' : '';
+
 export async function getArticleList() {
-  return request('/api/post/index');
+  return request(`${baseURL}/post/index`);
 }
 
 export async function addArticle(data) {
-  return request('/api/post/addArticle', {
+  return request(`${baseURL}/post/addArticle`, {
     method: 'POST',
     data,
     requestType: 'formData',
@@ -13,7 +15,7 @@ export async function addArticle(data) {
 }
 
 export async function getArticle({ postId }) {
-  return request('/api/post/post', {
+  return request(`${baseURL}/post/post`, {
     method: 'GET',
     params: {
       postId,
@@ -22,7 +24,7 @@ export async function getArticle({ postId }) {
 }
 
 export async function editArticle(data) {
-  return request('/api/post/updateArticle', {
+  return request(`${baseURL}/post/updateArticle`, {
     method: 'POST',
     data,
   });
