@@ -32,6 +32,7 @@ export default {
     },
     *fetchCity({ payload }, { put }) {
       const response = city[payload];
+      console.log(response);
       yield put({
         type: 'setCity',
         payload: response,

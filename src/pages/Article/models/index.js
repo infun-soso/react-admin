@@ -32,10 +32,11 @@ export default {
     },
     *getArticle({ payload }, { call, put }) {
       const response = yield call(getArticle, payload);
+      console.log(response);
       if (response.code === 0) {
         yield put({
           type: 'savePost',
-          payload: response.data[0],
+          payload: response.data,
         });
       } else {
         message.error(response.msg);
